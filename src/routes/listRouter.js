@@ -5,6 +5,8 @@ mongoose.Promise = global.Promise;
 const List = require('../models/list');
 const emitter = require('../EventEmitter');
 
+const id = 's8dsf7ds6f87s5afa98s5f9';
+
 listRouter.route('/')
 
   .get(function (req, res) {
@@ -15,7 +17,6 @@ listRouter.route('/')
   })
 
   .post(function (req, res) {
-    emitter.emit('list');
     List.findOne({title: req.body.title})
       .then( list => {
         if(list) {
@@ -33,6 +34,8 @@ listRouter.route('/')
             }
             res.json({success: true, message: 'List added successfully'});
           });
+
+          emitter.emit('list add', id);
         }
       })
   });
@@ -53,6 +56,7 @@ listRouter.route('/:list_id')
         if (err) res.send(err);
         res.json({success: true, message: 'List updated!'})
       });
+    emitter.emit('list update', id);
   })
 
   .delete(function (req, res) {
@@ -60,6 +64,7 @@ listRouter.route('/:list_id')
       if (err) return handleError(err);
       res.json({success: true, message: 'List delete!'})
     });
+    emitter.emit('list remove', id);
   });
 
 module.exports = listRouter;
