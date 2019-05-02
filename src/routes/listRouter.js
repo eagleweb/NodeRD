@@ -3,6 +3,7 @@ const listRouter = express.Router();
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 const List = require('../models/list');
+const emitter = require('../EventEmitter');
 
 listRouter.route('/')
 
@@ -14,6 +15,7 @@ listRouter.route('/')
   })
 
   .post(function (req, res) {
+    emitter.emit('list');
     List.findOne({title: req.body.title})
       .then( list => {
         if(list) {
@@ -30,7 +32,7 @@ listRouter.route('/')
               return res.status(400).json(err);
             }
             res.json({success: true, message: 'List added successfully'});
-          })
+          });
         }
       })
   });
