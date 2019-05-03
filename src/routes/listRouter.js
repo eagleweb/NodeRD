@@ -1,7 +1,7 @@
 const express = require('express');
 const listRouter = express.Router();
 const mongoose = require('mongoose');
-mongoose.Promise = global.Promise;
+mongoose.Promise = Promise;
 const List = require('../models/list');
 const emitter = require('../EventEmitter');
 

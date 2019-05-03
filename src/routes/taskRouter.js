@@ -1,7 +1,7 @@
 const express = require('express');
 const taskRouter = express.Router();
 const mongoose = require('mongoose');
-mongoose.Promise = global.Promise;
+mongoose.Promise = Promise;
 const Task = require('../models/task');
 const emitter = require('../EventEmitter');
 

@@ -3,7 +3,7 @@ const authRouter = express.Router();
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const config = require('../../config');
-mongoose.Promise = global.Promise;
+mongoose.Promise = Promise;
 const User = require('../models/user');
 
 authRouter.route('/register')

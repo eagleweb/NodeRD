@@ -1,7 +1,7 @@
 const express = require('express');
 const boardRouter = express.Router();
 const mongoose = require('mongoose');
-mongoose.Promise = global.Promise;
+mongoose.Promise = Promise;
 const Board = require('../models/board');
 
 boardRouter.route('/')

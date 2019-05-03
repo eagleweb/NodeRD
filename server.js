@@ -48,18 +48,17 @@ function returnToken(req, res, next) {
 
 // ROUTES FOR API =====================================================
 
+// app.use('/api/', require('./routes'));
+// app.use('/api/v2', require('./routes/v2'))
+
 app.use('/api/auth', authRouter);
 app.use('/api/auth/login/google', passport.authenticate('google', { scope: ['profile'] }));
 app.use('/api/auth/login/google/callback', passport.authenticate('google'), returnToken);
 app.use('/api/auth', authRouter);
-app.use('/api/users', passport.authenticate('jwt', { session: false }));
-app.use('/api/users', usersRouter);
-// app.use('/api/board', boardRouter, passport.authenticate('jwt', { session: false }));
-app.use('/api/board', boardRouter);
-// app.use('/api/list', listRouter, passport.authenticate('jwt', { session: false }));
-app.use('/api/list', listRouter);
-// app.use('/api/task', taskRouter, passport.authenticate('jwt', { session: false }));
-app.use('/api/task', taskRouter);
+app.use('/api/users', passport.authenticate('jwt', { session: false }), usersRouter);
+app.use('/api/board', passport.authenticate('jwt', { session: false }), boardRouter);
+app.use('/api/list', passport.authenticate('jwt', { session: false }), listRouter);
+app.use('/api/task', taskRouter, passport.authenticate('jwt', { session: false }), taskRouter);
 
 app.use('/api/graphql', graphqlRouter);
 app.use('/api/ws', wsRouter);

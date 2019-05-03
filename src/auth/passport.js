@@ -1,5 +1,3 @@
-"use strict";
-
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const GoogleOAuthStrategy = require("passport-google-oauth20");
@@ -7,6 +5,7 @@ const User = require('../models/user');
 const config = require('../../config');
 
 module.exports = function(passport) {
+
   const opts = {
     jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('jwt'),
     secretOrKey: config.secret
